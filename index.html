@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraHR — Leave Management Suite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient background mesh -->
+<div class="bg-mesh" aria-hidden="true">
+    <div class="mesh-orb mesh-orb-1"></div>
+    <div class="mesh-orb mesh-orb-2"></div>
+    <div class="mesh-orb mesh-orb-3"></div>
+</div>
+
+<div class="app-container">
+
+    <!-- ═══════════════════════════════════════════
+         HOME / LANDING SCREEN
+    ═══════════════════════════════════════════ -->
+    <div id="homeScreen" class="screen active">
+        <div class="home-wrap">
+            <!-- Top badge -->
+            <div class="home-badge">
+                <span class="badge-dot"></span>
+                Enterprise HR Platform
+            </div>
+
+            <!-- Logo & Brand -->
+            <div class="home-logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+            </div>
+
+            <h1 class="home-title">
+                Aura<span class="brand-accent">HR</span>
+            </h1>
+            <p class="home-subtitle">Leave Management Suite</p>
+            <p class="home-desc">
+                A modern, streamlined platform for managing employee leave requests — from submission to approval — with real-time AWS cloud sync.
+            </p>
+
+            <!-- Portal Cards -->
+            <div class="portal-cards">
+                <button class="portal-card employee-card" onclick="showEmployeePortal()">
+                    <div class="portal-card-icon">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="portal-card-content">
+                        <span class="portal-card-title">Employee Portal</span>
+                        <span class="portal-card-desc">Submit & track leave requests</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right portal-card-arrow"></i>
+                </button>
+
+                <button class="portal-card manager-card" onclick="showManagerLogin()">
+                    <div class="portal-card-icon manager-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="portal-card-content">
+                        <span class="portal-card-title">Manager Portal</span>
+                        <span class="portal-card-desc">Review & manage approvals</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right portal-card-arrow"></i>
+                </button>
+            </div>
+
+            <!-- Bottom tagline -->
+            <p class="home-footer-note">
+                <i class="fa-solid fa-cloud"></i> Powered by AWS Lambda · DynamoDB · SES
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         EMPLOYEE SCREEN
+    ═══════════════════════════════════════════ -->
+    <div id="employeeScreen" class="screen hidden">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-header-left">
+                <button class="back-btn" onclick="goHome()">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div>
+                    <h2 class="page-title">Employee Portal</h2>
+                    <p class="page-subtitle">Submit and track your leave requests</p>
+                </div>
+            </div>
+            <div class="header-avatar">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+        </div>
+
+        <div class="content-grid">
+
+            <!-- LEFT: Leave Request Form -->
+            <div class="form-panel panel">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <div class="panel-icon blue-icon">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                        <div>
+                            <h3 class="panel-title">New Leave Request</h3>
+                            <p class="panel-subtitle">Fill in the details below</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-body">
+                    <div class="form-row two-col">
+                        <div class="field-group">
+                            <label class="field-label" for="employeeName">
+                                <i class="fa-solid fa-user"></i> Full Name
+                            </label>
+                            <input id="employeeName" type="text" placeholder="John Doe" class="field-input">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="employeeEmail">
+                                <i class="fa-solid fa-envelope"></i> Email Address
+                            </label>
+                            <input id="employeeEmail" type="email" placeholder="john@company.com" class="field-input">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="leaveType">
+                            <i class="fa-solid fa-tag"></i> Leave Type
+                        </label>
+                        <div class="select-wrap">
+                            <select id="leaveType" class="field-input field-select">
+                                <option value="Casual Leave">🌴 Casual Leave</option>
+                                <option value="Sick Leave">🏥 Sick Leave</option>
+                                <option value="Emergency Leave">🚨 Emergency Leave</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-chevron"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-col">
+                        <div class="field-group">
+                            <label class="field-label" for="fromDate">
+                                <i class="fa-solid fa-calendar-day"></i> From Date
+                            </label>
+                            <input id="fromDate" type="date" class="field-input">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="toDate">
+                                <i class="fa-solid fa-calendar-check"></i> To Date
+                            </label>
+                            <input id="toDate" type="date" class="field-input">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="reason">
+                            <i class="fa-solid fa-pen-to-square"></i> Reason for Leave
+                        </label>
+                        <textarea id="reason" rows="4" placeholder="Briefly describe the reason for your leave..." class="field-input field-textarea"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-primary" id="submitBtn" onclick="submitLeave()">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Submit Request</span>
+                        </button>
+                        <button class="btn-secondary" id="viewRequestsBtn" onclick="loadMyRequests()">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>View My Requests</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: My Requests -->
+            <div class="requests-panel panel">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <div class="panel-icon purple-icon">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="panel-title">My Leave History</h3>
+                            <p class="panel-subtitle">Recent requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myRequests" class="my-requests-body">
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fa-solid fa-inbox"></i></div>
+                        <p class="empty-title">No requests yet</p>
+                        <p class="empty-desc">Submit a leave request and it will appear here.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         MANAGER LOGIN SCREEN
+    ═══════════════════════════════════════════ -->
+    <div id="managerLoginScreen" class="screen hidden">
+        <div class="login-wrap">
+            <div class="login-card panel">
+                <div class="login-header">
+                    <div class="login-logo">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 class="login-title">Manager Access</h2>
+                    <p class="login-subtitle">Enter your administrative credentials to continue</p>
+                </div>
+
+                <div class="login-body">
+                    <div class="field-group">
+                        <label class="field-label" for="managerPassword">
+                            <i class="fa-solid fa-lock"></i> Password
+                        </label>
+                        <div class="password-wrap">
+                            <input type="password" id="managerPassword" placeholder="Enter manager password" class="field-input" onkeydown="if(event.key==='Enter')loginManager()">
+                            <button class="pwd-toggle" type="button" onclick="togglePassword()">
+                                <i class="fa-solid fa-eye" id="pwdIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="btn-dark full-width" id="loginBtn" onclick="loginManager()">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Sign In</span>
+                    </button>
+
+                    <button class="btn-ghost full-width" onclick="goHome()">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Back to Home</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         MANAGER DASHBOARD SCREEN
+    ═══════════════════════════════════════════ -->
+    <div id="managerScreen" class="screen hidden">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-header-left">
+                <div class="manager-brand">
+                    <div class="manager-brand-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h2 class="page-title">Manager Dashboard</h2>
+                        <p class="page-subtitle">Leave approval management</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon-outline" onclick="loadAllRequests()" title="Refresh">
+                    <i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i>
+                </button>
+                <button class="btn-logout" onclick="goHome()">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card total-card">
+                <div class="stat-icon-wrap total-bg">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value" id="statTotal">—</span>
+                    <span class="stat-label">Total Requests</span>
+                </div>
+            </div>
+            <div class="stat-card pending-card">
+                <div class="stat-icon-wrap pending-bg">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value" id="statPending">—</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+            </div>
+            <div class="stat-card approved-card">
+                <div class="stat-icon-wrap approved-bg">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value" id="statApproved">—</span>
+                    <span class="stat-label">Approved</span>
+                </div>
+            </div>
+            <div class="stat-card rejected-card">
+                <div class="stat-icon-wrap rejected-bg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-value" id="statRejected">—</span>
+                    <span class="stat-label">Rejected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Panel -->
+        <div class="panel table-panel">
+            <div class="table-toolbar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name or email..." class="search-input" oninput="filterTable()">
+                </div>
+                <div class="filter-tabs" id="filterTabs">
+                    <button class="filter-tab active" data-filter="all" onclick="setFilter('all', this)">All</button>
+                    <button class="filter-tab" data-filter="pending" onclick="setFilter('pending', this)">
+                        <span class="tab-dot pending-dot"></span>Pending
+                    </button>
+                    <button class="filter-tab" data-filter="approved" onclick="setFilter('approved', this)">
+                        <span class="tab-dot approved-dot"></span>Approved
+                    </button>
+                    <button class="filter-tab" data-filter="rejected" onclick="setFilter('rejected', this)">
+                        <span class="tab-dot rejected-dot"></span>Rejected
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Leave Type</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTable">
+                        <tr class="empty-row">
+                            <td colspan="5" class="loading-cell">
+                                <div class="table-loader">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                    <span>Loading requests...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<script src="javascript.js"></script>
+</body>
+</html>
