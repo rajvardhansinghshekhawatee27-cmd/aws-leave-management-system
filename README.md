@@ -144,4 +144,19 @@ POST `/update-status-v2`
 * Scalable and cost-efficient design
 
 
+## Screenshots
 
+### Home Page
+![Home Page](screenshots/Home%20Page.png)
+
+### Employee Portal
+![Employee Portal](screenshots/Employee%20Portal.png)
+
+### Employee Portal 2
+![Employee Portal 2](screenshots/Employee%20Portal2.png)
+
+### Manager Dashboard
+![Manager Dashboard](screenshots/manager%20dashboard.png)
+
+### Manager Dashboard 2
+![Manager Dashboard 2](screenshots/Manager%20dashboard2.png)
