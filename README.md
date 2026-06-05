@@ -1,4 +1,9 @@
 # AWS Leave Management System
+## Live Demo
+
+CloudFront URL:
+https://d2t849fe9r5d71.cloudfront.net
+
 
 ## Overview
 
