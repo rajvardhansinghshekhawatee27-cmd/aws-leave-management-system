@@ -33,13 +33,7 @@ The application is built entirely on AWS cloud services using a scalable serverl
 * Approval notifications
 * Rejection notifications
 
-### Security
 
-* Authentication and user management using Amazon Cognito
-* Secure API access
-* Serverless architecture
-
----
 
 ## AWS Services Used
 
@@ -71,10 +65,7 @@ The application is built entirely on AWS cloud services using a scalable serverl
 * Automated email notifications
 * Approval and rejection alerts
 
-### Amazon Cognito
 
-* User authentication
-* Access management
 
 ---
 
@@ -87,10 +78,7 @@ Employee / Manager
  Amazon S3 Website
         │
         ▼
- Amazon Cognito
-(Authentication)
-        │
-        ▼
+
  Amazon API Gateway
         │
         ▼
@@ -155,42 +143,5 @@ POST `/update-status-v2`
 * Email notification integration
 * Scalable and cost-efficient design
 
----
 
-## Future Enhancements
 
-* Leave balance management
-* Multi-level approvals
-* Analytics dashboard
-* CloudFront integration
-* Custom domain support
-* Role-based access control
-* Mobile application
-
----
-
-## Screenshots
-
-### Home Page
-
-(Add Screenshot)
-
-### Employee Portal
-
-(Add Screenshot)
-
-### Manager Dashboard
-
-(Add Screenshot)
-
-### Email Notification
-
-(Add Screenshot)
-
----
-
-## Author
-
-**Rajvardhan Singh Shekhawat**
-
-Serverless Leave Management System using AWS Cloud Services.
